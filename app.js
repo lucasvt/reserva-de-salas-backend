@@ -26,7 +26,9 @@ db.once('open', function () {
         dataFim : Date,
         responsavel : String,
         cafe : Boolean,
-        descricao : String
+        quantidadePessoas : Number,
+        descricao : String,
+        criadoEm : Date
     }));
 });
 
@@ -37,35 +39,13 @@ app.get('/', function (req, res) {
 });
 
 app.get('/reservas', function (req, res) {
-   res.json([
-       {
-           local : 'Centro',
-           sala : 'Sala 1',
-           dataInicio : '2017/08/10 12:50:35',
-           dataFim : '2017/08/10 12:50:35',
-           responsavel : 'Lucas',
-           cafe : 'sim',
-           descricao : 'Alugado para Reunião'
-       },
-       {
-           local : 'Centro 2',
-           sala : 'Sala 2',
-           dataInicio : '2017/08/10 12:50:35',
-           dataFim : '2017/08/10 12:50:35',
-           responsavel : 'Lucas',
-           cafe : 'não',
-           descricao : 'Alugado para Reunião 2'
-       },
-       {
-           local : 'Centro 3',
-           sala : 'Sala  3',
-           dataInicio : '2017/08/10 12:50:35',
-           dataFim : '2017/08/10 12:50:35',
-           responsavel : 'Lucas',
-           cafe : 'sim',
-           descricao : 'Alugado para Reunião 3'
-       }
-   ]);
+    Reserva.find({}, function (error, reservas) {
+        if(error){
+            res.json({error: 'Não foi pocivel retornar as reservas'})
+        }else{
+            res.json(reservas);
+        }
+    })
 });
 
 app.get('/locais', function (req, res) {
@@ -94,7 +74,9 @@ app.post('/reservas', function (req, res) {
             dataFim : req.body.dataFim,
             responsavel : req.body.responsavel,
             cafe : req.body.cafe,
-            descricao : req.body.descricao
+            quantidadePessoas : req.body.quantidadePessoas,
+            descricao : req.body.descricao,
+            criadoEm : new Date(),
         }).save(function (error, reserva) {
             if(error){
                 res.json({error: 'Não foi pocivel salvar a reserva'})
