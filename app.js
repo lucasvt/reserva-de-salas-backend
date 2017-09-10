@@ -1,22 +1,11 @@
 var app = require('./js/config/app-config.js');
 var reservaController = require('./js/controllers/reservaController.js');
+var reservaController = require('./js/controllers/localController.js');
 
 app.get('/locais', function (req, res) {
-    res.json([
-        'Florianópolis-SC / Aeroporto Hercílio Luz',
-        'Curitiba-PR / Rodoferroviária de Curitiba',
-        'Londrina-PR / Catuaí Shopping Center',
-        'Balneário Camboriú-SC / Avenida Atlântica'
-    ]);
-});
-
-app.get('/salas', function (req, res) {
-    res.json([
-        'São José',
-        'Joaquina',
-        'Ingleses',
-        'Jurerê'
-    ]);
+    localController.buscaTodos(function(localResponse) {
+        res.json(localResponse);
+    });
 });
 
 app.get('/reservas', function (req, res) {

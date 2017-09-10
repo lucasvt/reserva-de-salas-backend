@@ -10,9 +10,10 @@ db.on('error', console.error.bind(console, 'Erro ao conectar o banco'));
 
 //schemas do mongose
 db.once('open', function () {
+
     //Schema de Reservas
     exports.Reserva = mongoose.model('Reserva', mongoose.Schema({
-        local : Object,
+        local : {type: mongoose.Schema.Types.ObjectId, ref: 'Local'},
         sala : String,
         dataInicio : Date,
         dataFim : Date,
@@ -20,6 +21,22 @@ db.once('open', function () {
         cafe : Boolean,
         quantidadePessoas : Number,
         descricao : String,
+        criadoEm : Date
+    }), 'Reservas');
+});
+
+db.once('open', function () {
+    //Schema de Local
+    exports.Local = mongoose.model('Local', mongoose.Schema({
+        nome : String,
+        criadoEm : Date
+    }));
+});
+
+db.once('open', function () {
+    //Schema de Sala
+    exports.Sala = mongoose.model('Sala', mongoose.Schema({
+        sala : String,
         criadoEm : Date
     }));
 });
