@@ -3,10 +3,10 @@ var reservaController = require('./js/controllers/reservaController.js');
 
 app.get('/locais', function (req, res) {
     res.json([
-        {local :'Florianopolis', filial : 'Capoeiras'},
-        {local :'Londrina', filial : 'Centro'},
-        {local :'São José', filial : 'Kobrasol'}
-
+        'Florianópolis-SC / Aeroporto Hercílio Luz',
+        'Curitiba-PR / Rodoferroviária de Curitiba',
+        'Londrina-PR / Catuaí Shopping Center',
+        'Balneário Camboriú-SC / Avenida Atlântica'
     ]);
 });
 
