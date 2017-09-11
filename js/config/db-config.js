@@ -14,7 +14,7 @@ db.once('open', function () {
     //Schema de Reservas
     exports.Reserva = mongoose.model('Reserva', mongoose.Schema({
         local : {type: mongoose.Schema.Types.ObjectId, ref: 'Local'},
-        sala : String,
+        sala : Object,
         dataInicio : Date,
         dataFim : Date,
         responsavel : String,
@@ -23,20 +23,11 @@ db.once('open', function () {
         descricao : String,
         criadoEm : Date
     }), 'Reservas');
-});
 
-db.once('open', function () {
     //Schema de Local
     exports.Local = mongoose.model('Local', mongoose.Schema({
         nome : String,
+        salas : Array,
         criadoEm : Date
-    }));
-});
-
-db.once('open', function () {
-    //Schema de Sala
-    exports.Sala = mongoose.model('Sala', mongoose.Schema({
-        sala : String,
-        criadoEm : Date
-    }));
+    }), 'Locais');
 });

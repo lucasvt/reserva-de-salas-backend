@@ -1,12 +1,6 @@
 var app = require('./js/config/app-config.js');
 var reservaController = require('./js/controllers/reservaController.js');
-var reservaController = require('./js/controllers/localController.js');
-
-app.get('/locais', function (req, res) {
-    localController.buscaTodos(function(localResponse) {
-        res.json(localResponse);
-    });
-});
+var localController = require('./js/controllers/localController.js');
 
 app.get('/reservas', function (req, res) {
 
@@ -24,7 +18,7 @@ app.get('/reservas/:id', function (req, res) {
 
 app.post('/reservas', function (req, res) {
     var reserva = req.body;
-    reservaController.salva(reserva, function (reservaResponse) {
+    reservaController.consulta(consulta, function (reservaResponse) {
         res.json(reservaResponse);
     });
 });
@@ -41,6 +35,13 @@ app.delete('/reservas/:id', function (req, res) {
     reservaController.deleta(id, function (reservaResponse) {
         res.json(reservaResponse);
     })
+});
+
+app.get('/locais', function (req, res) {
+    localController.buscaTodos(function(localResponse) {
+        console.log(localResponse);
+        res.json(localResponse);
+    });
 });
 
 

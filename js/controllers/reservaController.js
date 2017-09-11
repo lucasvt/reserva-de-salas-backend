@@ -1,16 +1,30 @@
 var db = require('../config/db-config.js');
 
-exports.buscaTodos = function(callback){
-    db.Reserva.find({})
-        .populate('local')
-        .exec(function(error, reserva) {
-        if(error){
-            callback({error: 'Não foi possivel retornar as reservas'})
-        } else {
-            callback(reserva);
+exports.consulta = function(consulta, callback){
+    db.Reserva.find({
+        local: consulta.local,
+        carro: consulta.carro,
+        $and: [
+        {
+            dataInicio: {$gte:  new Date(consulta.dataInicio)},
+            dataFim: {$lte:  new Date(consulta.dataFim)}
         }
-    });
-};
+     ]})
+        .populate('local')
+        .exec(function (error, reserva) {
+            if (error){
+                callback({error : 'Não foi pocivel retornar sua consulta'})
+            } else {
+                callback(reserva);
+            }
+        });
+}
+
+
+
+
+
+
 
 exports.buscaPorId = function(id, callback){
     db.Reserva.findById(id)
