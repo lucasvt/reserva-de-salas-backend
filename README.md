@@ -1,13 +1,14 @@
-# Reserva de Salas BackEnd
+# Reserva de Salas Back-End
 Sistema de gerenciamento de reserva de salas.
 
 ## Sobre
 Projeto BackEnd do sistema de gerenciamento de reserva de salas, desenvolvido totalmente em JavaScript utilizando NodeJS com ExpressJS e banco de dados NoSQL MongoDB com Mongoose.
 
 ## Instalação
-Requer o [Node.js](https://nodejs.org/) e [NPM](https://www.npmjs.com/) para o funcionamento.
+Requer o [](https://nodejs.org/) e [NPM](https://www.npmjs.com/) para o funcionamento.
 
 ###Faça o download do projeto:
+Link do repositório [Reserva de Salas BackEnd](https://github.com/lucasvt/reserva-de-salas-backend.git)
 
 ```sh
 $ git clone https://github.com/lucasvt/reserva-de-salas-backend.git
@@ -16,7 +17,9 @@ e depois:
 ```sh
 $ npm install
 ```
-Para criar Local/Filiais e Sala
+###Para criar Local/Filiais e Sala
+Não será possível incerir as reservas sem rodar o Script para criar as listas de locais e salas
+
 
 ```sh
 mongo

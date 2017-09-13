@@ -16,8 +16,9 @@ db.once('open', function () {
         // Referencia o ID do local no schema Local
         local : {type: mongoose.Schema.Types.ObjectId, ref: 'Local'},
         sala : Object,
-        dataInicio : Date,
-        dataFim : Date,
+        data : Date,
+        horaInicio : Date,
+        horaFim : Date,
         responsavel : String,
         cafe : Boolean,
         quantidadePessoas : Number,
