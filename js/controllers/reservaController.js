@@ -1,37 +1,50 @@
 var db = require('../config/db-config.js');
 
+// Consulta reserva com os parâmetros passados
 exports.consulta = function(consulta, callback){
     db.Reserva.find({
         local: consulta.local,
-        carro: consulta.carro,
+        carro: consulta.sala,
         $and: [
         {
-            dataInicio: {$gte:  new Date(consulta.dataInicio)},
-            dataFim: {$lte:  new Date(consulta.dataFim)}
+            dataInicio: {
+                $gte:  new Date(consulta.dataInicio)
+            },
+            dataFim: {
+                $lte:  new Date(consulta.dataFim)
+            }
         }
-     ]})
+     ]
+    })
         .populate('local')
         .exec(function (error, reserva) {
             if (error){
-                callback({error : 'Não foi pocivel retornar sua consulta'})
+                callback({error : 'Não foi possível retornar sua consulta'})
             } else {
                 callback(reserva);
             }
         });
-}
+    }
 
 
-
-
-
-
+exports.buscaTodos = function(callback){
+    db.Reserva.find({})
+        .populate('local')
+        .exec(function(error, reservas) {
+            if(error) {
+                callback({ error: 'Não foi possível retornar suas reservas' });
+            } else {
+                callback(reservas);
+            }
+        });
+};
 
 exports.buscaPorId = function(id, callback){
     db.Reserva.findById(id)
         .populate('local')
         .exec(function(error, reserva) {
         if(error){
-            callback({error: 'Não foi possivel retornar a reserva'})
+            callback({error: 'Não foi possível retornar a reserva'})
         } else {
             callback(reserva);
         }
@@ -51,7 +64,7 @@ exports.salva = function(reserva, callback){
         criadoEm : new Date()
     }).save(function (error, reserva) {
         if(error){
-            callback({error: 'Não foi possivel salvar a reserva'})
+            callback({error: 'Não foi possível salvar a reserva'})
         } else {
             callback(reserva);
         }
@@ -60,9 +73,6 @@ exports.salva = function(reserva, callback){
 
 exports.atualiza = function(reservaObj, callback){
     db.Reserva.findById(reservaObj._id, function (error, reserva) {
-        if (error){
-            callback({error: 'Não foi possivel alterar a reserva'})
-        } else {
             reserva.local = reservaObj.local;
             reserva.sala = reservaObj.sala;
             reserva.dataInicio = reservaObj.dataInicio;
@@ -71,15 +81,13 @@ exports.atualiza = function(reservaObj, callback){
             reserva.cafe = reservaObj.cafe;
             reserva.quantidadePessoas = reservaObj.quantidadePessoas;
             reserva.descricao = reservaObj.descricao;
-
             reserva.save(function (error, reserva) {
                 if(error){
-                    callback({error: 'Não foi possivel alterar a reserva'});
+                    callback({error: 'Não foi possível alterar a reserva'});
                 } else {
                     callback(reserva);
                 }
-            });
-        }
+        });
     });
 };
 

@@ -1,18 +1,19 @@
-//Importa o mongoose
+// IMPORTA O MONGOOSE
 var mongoose = require('mongoose');
 
+// CONECTA COM O BD MONGODB USANDO MONGOOSE
 mongoose.connect('mongodb://127.0.0.1/reserva_de_salas');
-
-//Conecta com o mongodb
 var db = mongoose.connection;
 
+// TRATAMENTO DE ERRO DE CONEXÃO
 db.on('error', console.error.bind(console, 'Erro ao conectar o banco'));
 
-//schemas do mongose
+// SCHEMAS DO MONGODB
 db.once('open', function () {
 
-    //Schema de Reservas
+    // SCHEMA DE RESERVAS
     exports.Reserva = mongoose.model('Reserva', mongoose.Schema({
+        // Referencia o ID do local no schema Local
         local : {type: mongoose.Schema.Types.ObjectId, ref: 'Local'},
         sala : Object,
         dataInicio : Date,
